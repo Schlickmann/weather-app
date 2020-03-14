@@ -18,6 +18,7 @@ const getCoordinates = (persisted, dispatch) => {
 
   function error() {
     toast.error('Unable to retrieve your location');
+
     dispatch({
       type: Types.HANDLE_FIND_ME_FAILURE,
     });
@@ -26,7 +27,11 @@ const getCoordinates = (persisted, dispatch) => {
   if (!navigator.geolocation) {
     toast.error('Geolocation is not supported by your browser');
   } else {
-    navigator.geolocation.getCurrentPosition(success, error);
+    navigator.geolocation.getCurrentPosition(success, error, {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    });
   }
 };
 
