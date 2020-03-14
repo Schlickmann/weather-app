@@ -1,11 +1,8 @@
 const path = require('path');
-const fs = require('fs');
-const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env) => {
-
   return {
     entry: path.resolve(__dirname, 'src', 'index.js'),
     output: {

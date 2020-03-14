@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "",
-    "dev": "webpack-dev-server --env.ENVIRONMENT=development --mode development",
-    "build": "webpack --env.ENVIRONMENT=production --mode production"
+    "dev": "webpack-dev-server --mode development",
+    "build": "node createEnv.js && webpack --mode production"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
