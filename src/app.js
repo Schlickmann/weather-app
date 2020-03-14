@@ -1,17 +1,21 @@
-import React from 'react'
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
 
-import loadingDark from './assets/weather-dark.svg';
-import loadingLight from './assets/weather-light.svg';
+import { WeatherProvider } from './contexts/Weather';
+
+import Main from './pages/Main';
 import GlobalStyles from './styles/global';
 
 function App() {
+  console.log(process.env.WEATHER_API);
   return (
-    <>
-      <h1>Hi Ju</h1>
-      <img src={loadingDark} alt=""/>
-      <img src={loadingLight} alt=""/>
-      <GlobalStyles />
-    </>
+    <WeatherProvider>
+      <>
+        <Main />
+        <GlobalStyles />
+        <ToastContainer autoClose={3000} />
+      </>
+    </WeatherProvider>
   )
 }
 

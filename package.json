@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "",
-    "dev": "webpack-dev-server --mode development",
-    "build": "webpack --mode production"
+    "dev": "webpack-dev-server --env.ENVIRONMENT=development --mode development",
+    "build": "webpack --env.ENVIRONMENT=production --mode production"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -25,8 +25,13 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "immer": "^6.0.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-icons": "^3.9.0",
+    "react-toastify": "^5.5.0",
     "styled-components": "^5.0.1"
   }
 }
