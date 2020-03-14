@@ -12,7 +12,7 @@ const Types = {
 const INITIAL_STATE = {
   loading: false,
   coordinater: null,
-  city: ''
+  city: '',
 };
 
 function reducer(state, action) {
@@ -23,13 +23,11 @@ function reducer(state, action) {
         break;
       }
       case Types.HANDLE_FIND_ME_SUCCESS: {
-        draft.token = action.payload.token;
-        draft.signed = true;
         draft.loading = false;
 
-        action.payload.setWeather({
-          signed: true,
-          token: action.payload.token,
+        action.payload.persisted.setWeather({
+          ...action.payload.persisted.weather,
+          coordinates: action.payload.coordinates,
         });
         break;
       }

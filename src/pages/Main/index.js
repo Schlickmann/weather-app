@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 
-
 import { weatherContext } from '../../contexts/Weather';
 import Loading from '../../components/Loading';
 
@@ -18,11 +17,10 @@ export default function Main() {
       {loading ? (
         <Loading />
       ) : (
-        <Button type="button" onClick={handleFindMeRequest} theme="light" >
+        <Button type="button" onClick={handleFindMeRequest} theme="light">
           <Icon theme="light" />
         </Button>
       )}
-    
     </Container>
   );
 }

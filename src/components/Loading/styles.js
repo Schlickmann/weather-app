@@ -19,12 +19,11 @@ export const Container = styled.div`
 `;
 
 export const Image = styled.img.attrs(props => ({
-  src: props.theme === 'light' ? loadingLight : loadingDark
+  src: props.theme === 'light' ? loadingLight : loadingDark,
 }))`
   max-height: 200px;
   margin-bottom: 50px;
 `;
-
 
 export const Spinner = styled(FaSpinner).attrs(props => ({
   color: props.theme === 'light' ? '#222' : '#E1C319',

@@ -1,7 +1,7 @@
 import React, { createContext, useMemo, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
-import { getCoordinates } from './actions';
+import { getCoordinates, getWeatherInfo } from './actions';
 import { reducer, INITIAL_STATE, Types } from './reducer';
 
 import usePersistedState from '../../utils/hooks/UsePersistedState';
@@ -11,18 +11,17 @@ const { Provider } = weatherContext;
 
 const WeatherProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-  const [weather, setweather, getState] = usePersistedState(
+  const [weather, setWeather, getState] = usePersistedState(
     '@weatherApp/weatherContext',
     {}
   );
-  const context = useMemo(() => {
-    return { weather, setweather, getState };
-  }, [weather, setweather, getState]);
-
+  const persisted = useMemo(() => {
+    return { weather, setWeather, getState };
+  }, [weather, setWeather, getState]);
 
   const {
     weather: { coordinates, city },
-  } = context;
+  } = persisted;
   const value = {
     ...state,
     coordinates: coordinates || state.coordinates,
@@ -32,7 +31,7 @@ const WeatherProvider = ({ children }) => {
         type: Types.HANDLE_FIND_ME_REQUEST,
       });
 
-      getCoordinates();
+      getCoordinates(persisted, dispatch);
     },
     weatherRequest: () => {
       dispatch({

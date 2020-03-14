@@ -7,7 +7,6 @@ import Main from './pages/Main';
 import GlobalStyles from './styles/global';
 
 function App() {
-  console.log(process.env.WEATHER_API);
   return (
     <WeatherProvider>
       <>
@@ -16,7 +15,7 @@ function App() {
         <ToastContainer autoClose={3000} />
       </>
     </WeatherProvider>
-  )
+  );
 }
 
 export default App;

@@ -1,18 +1,26 @@
 import { toast } from 'react-toastify';
 
-import api from '../../services/api';
+// import api from '../../services/api';
 import { Types } from './reducer';
 
-const getCoordinates = () => {
+const getCoordinates = (persisted, dispatch) => {
   function success(position) {
-    const latitude  = position.coords.latitude;
-    const longitude = position.coords.longitude;
+    const { latitude } = position.coords;
+    const { longitude } = position.coords;
 
-    toast.success(`Lat: ${latitude}, Long: ${longitude}`)
+    toast.success(`We found you! :) Lat: ${latitude}, Long: ${longitude}`);
+
+    dispatch({
+      type: Types.HANDLE_FIND_ME_SUCCESS,
+      payload: { coordinates: { latitude, longitude }, persisted },
+    });
   }
 
   function error() {
     toast.error('Unable to retrieve your location');
+    dispatch({
+      type: Types.HANDLE_FIND_ME_FAILURE,
+    });
   }
 
   if (!navigator.geolocation) {
@@ -20,7 +28,8 @@ const getCoordinates = () => {
   } else {
     navigator.geolocation.getCurrentPosition(success, error);
   }
+};
 
-}
+const getWeatherInfo = () => {};
 
-export { getCoordinates };
+export { getCoordinates, getWeatherInfo };

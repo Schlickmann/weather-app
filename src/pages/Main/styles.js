@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
-  background-color: ${props => props.theme === 'light' ? '#222' : '#E1C319'};
+  background-color: ${props => (props.theme === 'light' ? '#222' : '#E1C319')};
   border: 0;
   border-radius: 4px;
   padding: 10px;
@@ -21,4 +21,3 @@ export const Icon = styled(MdLocationSearching).attrs(props => ({
   color: props.theme === 'light' ? '#E1C319' : '#222',
   size: 24,
 }))``;
-
