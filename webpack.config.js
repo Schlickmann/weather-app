@@ -7,14 +7,15 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js'
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html'),
+      favicon: path.resolve(__dirname, 'src', 'assets', 'logo.svg')
+    })
+  ],
   devServer: {
     contentBase: path.resolve(__dirname, 'public')
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      favicon: "./src/assets/moon.svg"
-    })
-  ],
   module: {
     rules: [
       { 
@@ -29,7 +30,19 @@ module.exports = {
       {
         test: /.*\.(gif|png|jpe?g)$/i,
         use: { loader: 'file-loader' }
-      }
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: 10000,
+            },
+          },
+        ],
+      },
     ]
-  }
+  },
+  
 };
