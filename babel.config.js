@@ -1,13 +1,5 @@
 module.exports = {
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        useBuiltIns: 'entry',
-      },
-    ],
-    '@babel/preset-react',
-  ],
+  presets: ['@babel/preset-env', '@babel/preset-react'],
   plugins: [
     [
       'babel-plugin-styled-components',
@@ -16,5 +8,6 @@ module.exports = {
         displayName: false,
       },
     ],
+    ['transform-regenerator'],
   ],
 };

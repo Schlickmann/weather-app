@@ -1,23 +1,26 @@
 import { toast } from 'react-toastify';
 import api from '../../services/api';
 import { Types } from './reducer';
-// import 'babel-polyfill';
 
 const getCoordinates = dispatch => {
-  async function success(position) {
+  function success(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
 
     toast.success(`We found you! :) Lat: ${latitude}, Long: ${longitude}`);
 
-    const response = await api.get(
-      `/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.API_KEY}`
-    );
-
-    dispatch({
-      type: Types.HANDLE_WEATHER_SUCCESS,
-      payload: { weather: response.data.list },
-    });
+    api
+      .get(
+        `/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.API_KEY}`
+      )
+      .then(response =>
+        dispatch({
+          type: Types.HANDLE_WEATHER_SUCCESS,
+          payload: { weather: response.data.list },
+        })
+      )
+      // eslint-disable-next-line no-console
+      .catch(err => console.log(err));
   }
 
   function error() {
@@ -39,22 +42,17 @@ const getCoordinates = dispatch => {
   }
 };
 
-const getWeatherInfo = async (cityName, dispatch) => {
-  try {
-    const response = await api.get(
-      `/forecast?q=${cityName}&appid=${process.env.API_KEY}`
-    );
-
+const getWeatherInfo = (cityName, dispatch) => {
+  api
+    .get(`/forecast?q=${cityName}&appid=${process.env.API_KEY}`)
+    .then(response =>
+      dispatch({
+        type: Types.HANDLE_WEATHER_SUCCESS,
+        payload: { weather: response.data.list },
+      })
+    )
     // eslint-disable-next-line no-console
-    console.log(response);
-    dispatch({
-      type: Types.HANDLE_WEATHER_SUCCESS,
-      payload: { weather: response.data.list },
-    });
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    // console.log(error);
-  }
+    .catch(error => console.log(error));
 };
 
-export { getCoordinates, getWeatherInfo };
+export { getWeatherInfo, getCoordinates };

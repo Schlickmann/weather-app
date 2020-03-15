@@ -52,15 +52,4 @@ module.exports = () => ({
       },
     ],
   },
-  watch: true,
-  devtool: 'source-map',
-  resolve: {
-    alias: {
-      'styled-components': path.resolve(
-        __dirname,
-        'node_modules',
-        'styled-components'
-      ),
-    },
-  },
 });
