@@ -57,15 +57,21 @@ export const Content = styled.div`
     height: 44px;
     width: 360px;
 
-    input {
+    form {
       height: 100%;
-      border: 0;
-      border-radius: 4px;
       width: 100%;
-      padding-left: 10px;
+      display: flex;
 
-      &::placeholder {
-        color: #999;
+      input {
+        height: 100%;
+        border: 0;
+        border-radius: 4px;
+        width: 100%;
+        padding-left: 10px;
+
+        &::placeholder {
+          color: #999;
+        }
       }
     }
   }

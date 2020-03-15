@@ -1,9 +1,7 @@
 import produce from 'immer';
 
 const Types = {
-  HANDLE_FIND_ME_REQUEST: '@weatherContext/HANDLE_FIND_ME_REQUEST',
-  HANDLE_FIND_ME_SUCCESS: '@weatherContext/HANDLE_FIND_ME_SUCCESS',
-  HANDLE_FIND_ME_FAILURE: '@weatherContext/HANDLE_FIND_ME_FAILURE',
+  HANDLE_FIELD_CHANGE: '@weatherContext/HANDLE_FIELD_CHANGE',
   HANDLE_WEATHER_REQUEST: '@weatherContext/HANDLE_WEATHER_REQUEST',
   HANDLE_WEATHER_SUCCESS: '@weatherContext/HANDLE_WEATHER_SUCCESS',
   HANDLE_WEATHER_FAILURE: '@weatherContext/HANDLE_WEATHER_FAILURE',
@@ -13,27 +11,15 @@ const INITIAL_STATE = {
   loading: false,
   coordinater: null,
   city: '',
+  unit: '',
   weather: [],
 };
 
 function reducer(state, action) {
   return produce(state, draft => {
     switch (action.type) {
-      case Types.HANDLE_FIND_ME_REQUEST: {
-        draft.loading = true;
-        break;
-      }
-      case Types.HANDLE_FIND_ME_SUCCESS: {
-        draft.loading = false;
-
-        action.payload.persisted.setWeather({
-          ...action.payload.persisted.weather,
-          coordinates: action.payload.coordinates,
-        });
-        break;
-      }
-      case Types.HANDLE_FIND_ME_FAILURE: {
-        draft.loading = false;
+      case Types.HANDLE_FIELD_CHANGE: {
+        draft[action.payload.field] = action.payload.content;
         break;
       }
       case Types.HANDLE_WEATHER_REQUEST: {
@@ -41,11 +27,8 @@ function reducer(state, action) {
         break;
       }
       case Types.HANDLE_WEATHER_SUCCESS: {
-        draft.token = null;
-        draft.signed = false;
+        draft.weather = action.payload.weather;
         draft.loading = false;
-
-        action.payload.setWeather({});
         break;
       }
       case Types.HANDLE_WEATHER_FAILURE: {

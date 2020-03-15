@@ -26,19 +26,22 @@ const WeatherProvider = ({ children }) => {
     ...state,
     coordinates: coordinates || state.coordinates,
     city: city || state.city,
-    findMeRequest: () => {
-      dispatch({
-        type: Types.HANDLE_FIND_ME_REQUEST,
-      });
-
-      getCoordinates(persisted, dispatch);
-    },
-    weatherRequest: () => {
+    weatherRequest: cityName => {
       dispatch({
         type: Types.HANDLE_WEATHER_REQUEST,
       });
 
-      getWeatherInfo();
+      if (cityName.trim()) {
+        getWeatherInfo(cityName, dispatch);
+      } else {
+        getCoordinates(dispatch);
+      }
+    },
+    setField: (field, content) => {
+      dispatch({
+        type: Types.HANDLE_FIELD_CHANGE,
+        payload: { field, content },
+      });
     },
   };
 

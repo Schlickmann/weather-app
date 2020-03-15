@@ -1,18 +1,22 @@
 import { toast } from 'react-toastify';
-
-// import api from '../../services/api';
+import api from '../../services/api';
 import { Types } from './reducer';
+// import 'babel-polyfill';
 
-const getCoordinates = (persisted, dispatch) => {
-  function success(position) {
+const getCoordinates = dispatch => {
+  async function success(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
 
     toast.success(`We found you! :) Lat: ${latitude}, Long: ${longitude}`);
 
+    const response = await api.get(
+      `/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.API_KEY}`
+    );
+
     dispatch({
-      type: Types.HANDLE_FIND_ME_SUCCESS,
-      payload: { coordinates: { latitude, longitude }, persisted },
+      type: Types.HANDLE_WEATHER_SUCCESS,
+      payload: { weather: response.data.list },
     });
   }
 
@@ -20,7 +24,7 @@ const getCoordinates = (persisted, dispatch) => {
     toast.error('Unable to retrieve your location');
 
     dispatch({
-      type: Types.HANDLE_FIND_ME_FAILURE,
+      type: Types.HANDLE_WEATHER_FAILURE,
     });
   }
 
@@ -35,6 +39,22 @@ const getCoordinates = (persisted, dispatch) => {
   }
 };
 
-const getWeatherInfo = () => {};
+const getWeatherInfo = async (cityName, dispatch) => {
+  try {
+    const response = await api.get(
+      `/forecast?q=${cityName}&appid=${process.env.API_KEY}`
+    );
+
+    // eslint-disable-next-line no-console
+    console.log(response);
+    dispatch({
+      type: Types.HANDLE_WEATHER_SUCCESS,
+      payload: { weather: response.data.list },
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    // console.log(error);
+  }
+};
 
 export { getCoordinates, getWeatherInfo };

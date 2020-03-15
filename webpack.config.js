@@ -3,7 +3,7 @@ const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = () => ({
-  entry: path.resolve(__dirname, 'src', 'index.js'),
+  entry: ['@babel/polyfill', path.resolve(__dirname, 'src', 'index.js')],
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
@@ -52,6 +52,8 @@ module.exports = () => ({
       },
     ],
   },
+  watch: true,
+  devtool: 'source-map',
   resolve: {
     alias: {
       'styled-components': path.resolve(
