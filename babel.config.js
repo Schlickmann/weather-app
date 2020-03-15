@@ -8,6 +8,5 @@ module.exports = {
         displayName: false,
       },
     ],
-    ['transform-regenerator'],
   ],
 };
