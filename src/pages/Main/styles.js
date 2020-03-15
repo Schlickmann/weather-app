@@ -4,7 +4,6 @@ import { MdLocationSearching } from 'react-icons/md';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   height: 100%;
   background: ${props =>
@@ -24,6 +23,15 @@ export const Header = styled.header`
     text-transform: capitalize;
     color: ${props => (props.theme === 'dark' ? '#fff' : '#222')};
   }
+`;
+
+export const Content = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-width: 900px;
+  margin: auto;
 `;
 
 export const Button = styled.button`
