@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import api from '../../services/api';
 import { Types } from './reducer';
 
-const getCoordinates = dispatch => {
+const getCoordinates = (unit, dispatch) => {
   function success(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
@@ -11,7 +11,7 @@ const getCoordinates = dispatch => {
 
     api
       .get(
-        `/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.API_KEY}`
+        `/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.API_KEY}&units=${unit}`
       )
       .then(response =>
         dispatch({
@@ -19,8 +19,13 @@ const getCoordinates = dispatch => {
           payload: { weather: response.data.list },
         })
       )
-      // eslint-disable-next-line no-console
-      .catch(err => console.log(err));
+      .catch(() => {
+        toast.error('Something went wrong :( please, try again later');
+
+        dispatch({
+          type: Types.HANDLE_WEATHER_FAILURE,
+        });
+      });
   }
 
   function error() {
@@ -42,17 +47,22 @@ const getCoordinates = dispatch => {
   }
 };
 
-const getWeatherInfo = (cityName, dispatch) => {
+const getWeatherInfo = (cityName, unit, dispatch) => {
   api
-    .get(`/forecast?q=${cityName}&appid=${process.env.API_KEY}`)
+    .get(`/forecast?q=${cityName}&appid=${process.env.API_KEY}&units=${unit}`)
     .then(response =>
       dispatch({
         type: Types.HANDLE_WEATHER_SUCCESS,
         payload: { weather: response.data.list },
       })
     )
-    // eslint-disable-next-line no-console
-    .catch(error => console.log(error));
+    .catch(() => {
+      toast.error('Something went wrong :( please, try again later');
+
+      dispatch({
+        type: Types.HANDLE_WEATHER_FAILURE,
+      });
+    });
 };
 
 export { getWeatherInfo, getCoordinates };

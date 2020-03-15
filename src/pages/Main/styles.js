@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { MdLocationSearching } from 'react-icons/md';
+import {
+  MdLocationSearching,
+  MdChevronLeft,
+  MdChevronRight,
+} from 'react-icons/md';
 
 import logoDark from '../../assets/logo-dark.svg';
 import logoLight from '../../assets/logo-light.svg';
@@ -39,13 +43,15 @@ export const Header = styled.header`
 export const Logo = styled.img.attrs(props => ({
   src: props.theme === 'light' ? logoLight : logoDark,
 }))`
-  max-height: 100px;
+  display: block;
+  max-height: 150px;
+  margin: 2rem 1rem;
 `;
 
 export const Content = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: 100%;
   max-width: 900px;
   margin: auto;
@@ -94,8 +100,8 @@ export const Icon = styled(MdLocationSearching).attrs(props => ({
 
 export const Select = styled.select`
   height: 100%;
-  background: white;
-  color: gray;
+  background: ${props => (props.theme === 'light' ? '#222' : '#E1C319')};
+  color: ${props => (props.theme === 'light' ? '#E1C319' : '#222')};
   padding-left: 5px;
   font-size: 14px;
   border: none;
@@ -113,4 +119,53 @@ export const Select = styled.select`
 
 export const List = styled.ul`
   display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+
+  li {
+    padding: 20px;
+    border-radius: 4px;
+    background: ${props => (props.theme === 'light' ? '#222' : '#E1C319')};
+
+    strong {
+      display: block;
+      color: #f0f0f0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+    span {
+      display: block;
+      color: ${props => (props.theme === 'light' ? '#E1C319' : '#222')};
+      margin-top: 3px;
+    }
+  }
 `;
+
+export const DateHeader = styled.div`
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 30px;
+
+  button {
+    border: 0;
+    background: none;
+  }
+  strong {
+    color: ${props => (props.theme === 'light' ? '#222' : '#E1C319')};
+    font-size: 24px;
+    margin: 0 15px;
+  }
+`;
+
+export const IconPrevDate = styled(MdChevronLeft).attrs(props => ({
+  color: props.theme === 'light' ? '#222' : '#E1C319',
+  size: 36,
+}))``;
+
+export const IconNextDate = styled(MdChevronRight).attrs(props => ({
+  color: props.theme === 'light' ? '#222' : '#E1C319',
+  size: 36,
+}))``;

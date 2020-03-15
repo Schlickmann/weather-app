@@ -1,40 +1,26 @@
-import React, { createContext, useMemo, useReducer } from 'react';
+import React, { createContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 import { getCoordinates, getWeatherInfo } from './actions';
 import { reducer, INITIAL_STATE, Types } from './reducer';
-
-import usePersistedState from '../../utils/hooks/UsePersistedState';
 
 const weatherContext = createContext(INITIAL_STATE);
 const { Provider } = weatherContext;
 
 const WeatherProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-  const [weather, setWeather, getState] = usePersistedState(
-    '@weatherApp/weatherContext',
-    {}
-  );
-  const persisted = useMemo(() => {
-    return { weather, setWeather, getState };
-  }, [weather, setWeather, getState]);
 
-  const {
-    weather: { coordinates, city },
-  } = persisted;
   const value = {
     ...state,
-    coordinates: coordinates || state.coordinates,
-    city: city || state.city,
-    weatherRequest: cityName => {
+    weatherRequest: (cityName, unit) => {
       dispatch({
         type: Types.HANDLE_WEATHER_REQUEST,
       });
 
       if (cityName.trim()) {
-        getWeatherInfo(cityName, dispatch);
+        getWeatherInfo(cityName, unit, dispatch);
       } else {
-        getCoordinates(dispatch);
+        getCoordinates(unit, dispatch);
       }
     },
     setField: (field, content) => {

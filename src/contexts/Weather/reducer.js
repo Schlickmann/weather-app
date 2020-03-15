@@ -1,4 +1,6 @@
 import produce from 'immer';
+import { fromUnixTime } from 'date-fns';
+import { formatToTimeZone } from 'date-fns-timezone';
 
 const Types = {
   HANDLE_FIELD_CHANGE: '@weatherContext/HANDLE_FIELD_CHANGE',
@@ -8,8 +10,8 @@ const Types = {
 };
 
 const INITIAL_STATE = {
+  date: new Date(),
   loading: false,
-  coordinater: null,
   city: '',
   unit: '',
   weather: [],
@@ -27,7 +29,17 @@ function reducer(state, action) {
         break;
       }
       case Types.HANDLE_WEATHER_SUCCESS: {
-        draft.weather = action.payload.weather;
+        const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+
+        draft.weather = action.payload.weather.map(day => ({
+          ...day,
+          day_formatted: formatToTimeZone(fromUnixTime(day.dt), 'YYYY/MM/DD', {
+            timeZone,
+          }),
+          time: formatToTimeZone(fromUnixTime(day.dt), 'HH:mm', {
+            timeZone,
+          }),
+        }));
         draft.loading = false;
         break;
       }
