@@ -120,7 +120,7 @@ export default function Main() {
                         <span>{day.weather[0].main}</span>
                       </div>
                       <strong>
-                        {day.day_formatted} <span>{day.time}</span>
+                        {day.time} <span>{day.day_formatted}</span>
                       </strong>
                     </li>
                   )

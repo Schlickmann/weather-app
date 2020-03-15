@@ -44,6 +44,7 @@ export const Logo = styled.img.attrs(props => ({
   src: props.theme === 'light' ? logoLight : logoDark,
 }))`
   display: block;
+  height: 150px;
   max-height: 150px;
   margin: 2rem 1rem;
 `;
@@ -74,6 +75,7 @@ export const Content = styled.div`
         border-radius: 4px;
         width: 100%;
         padding-left: 10px;
+        margin-right: 10px;
 
         &::placeholder {
           color: #999;
@@ -91,6 +93,10 @@ export const Button = styled.button`
   height: 100%;
   margin-left: 10px;
   color: ${props => (props.theme === 'light' ? '#E1C319' : '#222')};
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export const Icon = styled(MdLocationSearching).attrs(props => ({
@@ -99,21 +105,28 @@ export const Icon = styled(MdLocationSearching).attrs(props => ({
 }))``;
 
 export const Select = styled.select`
+  display: block;
   height: 100%;
-  background: ${props => (props.theme === 'light' ? '#222' : '#E1C319')};
-  color: ${props => (props.theme === 'light' ? '#E1C319' : '#222')};
-  padding-left: 5px;
-  font-size: 14px;
+  width: 44px;
+  line-height: 1.3;
+  padding: 0 12px;
   border: none;
-  margin-left: 10px;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  background-color: ${props => (props.theme === 'light' ? '#222' : '#E1C319')};
+  color: ${props => (props.theme === 'light' ? '#E1C319' : '#222')};
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &::-ms-expand {
+    display: none;
+  }
 
   option {
-    color: black;
-    background: white;
-    display: flex;
-    white-space: pre;
-    min-height: 20px;
-    padding: 0px 2px 1px;
+    font-weight: normal;
   }
 `;
 
