@@ -80,22 +80,24 @@ export default function Main() {
                   value={city}
                   onChange={handleFieldChange}
                 />
-                <Select
-                  id="unit"
-                  value={unit}
-                  theme={theme}
-                  onChange={handleFieldChange}
-                >
-                  <option value="">℉</option>
-                  <option value="metric">°C</option>
-                </Select>
-                <Button
-                  type="submit"
-                  onClick={handleWeatherRequest}
-                  theme={theme}
-                >
-                  <Icon theme={theme} />
-                </Button>
+                <div>
+                  <Select
+                    id="unit"
+                    value={unit}
+                    theme={theme}
+                    onChange={handleFieldChange}
+                  >
+                    <option value="">℉</option>
+                    <option value="metric">°C</option>
+                  </Select>
+                  <Button
+                    type="submit"
+                    onClick={handleWeatherRequest}
+                    theme={theme}
+                  >
+                    <Icon theme={theme} />
+                  </Button>
+                </div>
               </form>
             </header>
             <DateHeader theme={theme}>

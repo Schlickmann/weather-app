@@ -33,6 +33,11 @@ function reducer(state, action) {
 
         draft.weather = action.payload.weather.map(day => ({
           ...day,
+          main: {
+            ...day.main,
+            temp_min: Math.round(day.main.temp_min),
+            temp_max: Math.round(day.main.temp_max),
+          },
           day_formatted: formatToTimeZone(fromUnixTime(day.dt), 'YYYY/MM/DD', {
             timeZone,
           }),

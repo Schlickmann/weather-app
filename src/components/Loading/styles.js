@@ -26,7 +26,7 @@ export const Image = styled.img.attrs(props => ({
 `;
 
 export const Spinner = styled(FaSpinner).attrs(props => ({
-  color: props.theme === 'light' ? '#222' : '#E1C319',
+  color: props.theme === 'light' ? '#222' : '#eead2d',
   size: 30,
 }))`
   animation: ${rotate} 2s infinite;
