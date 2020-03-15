@@ -31,17 +31,18 @@ function reducer(state, action) {
       }
       case Types.HANDLE_WEATHER_SUCCESS: {
         const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+        draft.city = `${action.payload.weather.city.name}, ${action.payload.weather.city.country}`;
         draft.current = {
-          ...action.payload.weather[0],
+          ...action.payload.weather.list[0],
           main: {
-            ...action.payload.weather[0].main,
-            temp: Math.round(action.payload.weather[0].main.temp),
-            temp_min: Math.round(action.payload.weather[0].main.temp_min),
-            temp_max: Math.round(action.payload.weather[0].main.temp_max),
+            ...action.payload.weather.list[0].main,
+            temp: Math.round(action.payload.weather.list[0].main.temp),
+            temp_min: Math.round(action.payload.weather.list[0].main.temp_min),
+            temp_max: Math.round(action.payload.weather.list[0].main.temp_max),
           },
         };
 
-        draft.weather = action.payload.weather.map(day => ({
+        draft.weather = action.payload.weather.list.map(day => ({
           ...day,
           main: {
             ...day.main,

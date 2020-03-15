@@ -16,7 +16,7 @@ const getCoordinates = (unit, dispatch) => {
       .then(response =>
         dispatch({
           type: Types.HANDLE_WEATHER_SUCCESS,
-          payload: { weather: response.data.list },
+          payload: { weather: response.data },
         })
       )
       .catch(() => {
@@ -53,7 +53,7 @@ const getWeatherInfo = (cityName, unit, dispatch) => {
     .then(response =>
       dispatch({
         type: Types.HANDLE_WEATHER_SUCCESS,
-        payload: { weather: response.data.list },
+        payload: { weather: response.data },
       })
     )
     .catch(() => {

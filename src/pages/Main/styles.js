@@ -75,6 +75,7 @@ export const Content = styled.div`
         padding-left: 10px;
         margin-right: 10px;
         height: 44px;
+        color: #222;
 
         &::placeholder {
           color: #999;
@@ -114,8 +115,17 @@ export const CurrentInfo = styled.div`
   border-radius: 4px;
   width: 100%;
   max-width: 360px;
-  background-color: #eee;
+  background: linear-gradient(
+    180deg,
+    rgba(208, 208, 208, 1) 0%,
+    rgba(240, 240, 240, 1) 45%,
+    rgba(255, 255, 255, 1) 100%
+  );
   color: #222;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
 
   > strong {
     display: block;
@@ -186,6 +196,10 @@ export const List = styled.ul`
     width: 180px;
     border-radius: 4px;
     background: ${props => (props.theme === 'light' ? '#222' : '#eead2d')};
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+      0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+      0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+      0 100px 80px rgba(0, 0, 0, 0.12);
 
     div {
       display: flex;
