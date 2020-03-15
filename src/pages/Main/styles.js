@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import {
-  MdLocationSearching,
-  MdChevronLeft,
-  MdChevronRight,
-} from 'react-icons/md';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 import logoDark from '../../assets/logo-dark.svg';
 import logoLight from '../../assets/logo-light.svg';
@@ -110,48 +106,72 @@ export const Content = styled.div`
   }
 `;
 
-export const Button = styled.button`
-  background-color: ${props => (props.theme === 'light' ? '#222' : '#eead2d')};
-  border: 0;
+export const CurrentInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-top: 30px;
   border-radius: 4px;
-  padding: 0 8px;
-  height: 100%;
-  margin-left: 10px;
-  color: ${props => (props.theme === 'light' ? '#eead2d' : '#222')};
+  width: 100%;
+  max-width: 360px;
+  background-color: #eee;
+  color: #222;
 
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-export const Icon = styled(MdLocationSearching).attrs(props => ({
-  color: props.theme === 'light' ? '#eead2d' : '#222',
-  size: 24,
-}))``;
-
-export const Select = styled.select`
-  display: block;
-  height: 100%;
-  width: 44px;
-  line-height: 1.3;
-  padding: 0 12px;
-  border: none;
-  border-radius: 4px;
-  -webkit-appearance: none;
-  background-color: ${props => (props.theme === 'light' ? '#222' : '#eead2d')};
-  color: ${props => (props.theme === 'light' ? '#eead2d' : '#222')};
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.8;
-  }
-
-  &::-ms-expand {
-    display: none;
-  }
-
-  option {
+  > strong {
+    display: block;
+    width: 100%;
+    padding-left: 20px;
+    font-size: 30px;
     font-weight: normal;
+  }
+
+  > span {
+    display: block;
+    width: 100%;
+    padding-left: 20px;
+    line-height: 1.5;
+
+    strong {
+      margin-right: 5px;
+    }
+  }
+
+  > div {
+    display: flex;
+    align-items: center;
+
+    > img {
+      height: 80px;
+    }
+
+    span {
+      font-size: 20px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    &:last-child {
+      justify-content: space-evenly;
+      padding-top: 10px;
+
+      span {
+        text-align: center;
+        font-size: 24px;
+        border-radius: 4px;
+        padding: 10px;
+        background-color: ${props =>
+          props.theme === 'light' ? '#222' : '#eead2d'};
+        width: 40%;
+
+        color: ${props => (props.theme === 'light' ? '#eead2d' : '#222')};
+
+        &:first-child {
+          background-color: ${props =>
+            props.theme === 'light' ? '#eead2d' : '#222'};
+          color: ${props => (props.theme === 'light' ? '#222' : '#eead2d')};
+        }
+      }
+    }
   }
 `;
 
@@ -226,6 +246,7 @@ export const DateHeader = styled.div`
   align-self: center;
   justify-content: center;
   width: 100%;
+  max-width: 360px;
   margin-top: 30px;
 
   button {

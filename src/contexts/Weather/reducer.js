@@ -15,6 +15,7 @@ const INITIAL_STATE = {
   city: '',
   unit: '',
   weather: [],
+  current: null,
 };
 
 function reducer(state, action) {
@@ -30,11 +31,21 @@ function reducer(state, action) {
       }
       case Types.HANDLE_WEATHER_SUCCESS: {
         const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+        draft.current = {
+          ...action.payload.weather[0],
+          main: {
+            ...action.payload.weather[0].main,
+            temp: Math.round(action.payload.weather[0].main.temp),
+            temp_min: Math.round(action.payload.weather[0].main.temp_min),
+            temp_max: Math.round(action.payload.weather[0].main.temp_max),
+          },
+        };
 
         draft.weather = action.payload.weather.map(day => ({
           ...day,
           main: {
             ...day.main,
+
             temp_min: Math.round(day.main.temp_min),
             temp_max: Math.round(day.main.temp_max),
           },

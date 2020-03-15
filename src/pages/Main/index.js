@@ -5,45 +5,28 @@ import { weatherContext } from '../../contexts/Weather';
 import { themeContext } from '../../contexts/Theme';
 import Loading from '../../components/Loading';
 import ThemeToggler from '../../components/ThemeToggler';
+import Form from '../../components/Form';
 
 import {
   Container,
   Header,
   Logo,
   Content,
-  Button,
-  Icon,
-  Select,
   DateHeader,
   IconPrevDate,
   IconNextDate,
+  CurrentInfo,
   List,
 } from './styles';
 
 export default function Main() {
-  const {
-    weatherRequest,
-    setField,
-    loading,
-    weather,
-    unit,
-    city,
-    date,
-  } = useContext(weatherContext);
+  const { setField, loading, weather, current, date } = useContext(
+    weatherContext
+  );
   const { theme } = useContext(themeContext);
 
   const dateFormatted = useMemo(() => format(date, 'yyyy/MM/dd'), [date]);
   const dateFormattedHeader = useMemo(() => format(date, 'MMMM do'), [date]);
-
-  function handleWeatherRequest(event) {
-    event.preventDefault();
-
-    weatherRequest(city, unit);
-  }
-
-  function handleFieldChange(event) {
-    setField(event.target.id, event.target.value);
-  }
 
   function handlePreviousDay() {
     if (dateFormatted === format(new Date(), 'yyyy/MM/dd')) return;
@@ -72,34 +55,38 @@ export default function Main() {
           <Content>
             <Logo theme={theme} />
             <header>
-              <form onSubmit={handleWeatherRequest}>
-                <input
-                  id="city"
-                  type="text"
-                  placeholder="Inform the city...e.g. Vancouver"
-                  value={city}
-                  onChange={handleFieldChange}
-                />
-                <div>
-                  <Select
-                    id="unit"
-                    value={unit}
-                    theme={theme}
-                    onChange={handleFieldChange}
-                  >
-                    <option value="">℉</option>
-                    <option value="metric">°C</option>
-                  </Select>
-                  <Button
-                    type="submit"
-                    onClick={handleWeatherRequest}
-                    theme={theme}
-                  >
-                    <Icon theme={theme} />
-                  </Button>
-                </div>
-              </form>
+              <Form />
             </header>
+
+            {current && (
+              <CurrentInfo theme={theme}>
+                <div>
+                  <img
+                    src={`http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`}
+                    alt={current.weather[0].description}
+                  />
+                  <span>{current.weather[0].description}</span>
+                </div>
+                <strong>{current.main.temp}&deg;</strong>
+                <span>
+                  <strong>Humidity:</strong>
+                  {current.main.humidity}
+                </span>
+                <span>
+                  <strong>Pressure:</strong>
+                  {current.main.pressure}
+                </span>
+                <span>
+                  <strong>Wind Speed: </strong>
+                  {current.wind.speed}
+                </span>
+
+                <div>
+                  <span>{current.main.temp_max}</span>
+                  <span>{current.main.temp_min}</span>
+                </div>
+              </CurrentInfo>
+            )}
             <DateHeader theme={theme}>
               <button type="button" onClick={handlePreviousDay}>
                 <IconPrevDate theme={theme} />
