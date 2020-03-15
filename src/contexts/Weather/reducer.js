@@ -36,6 +36,9 @@ function reducer(state, action) {
           day_formatted: formatToTimeZone(fromUnixTime(day.dt), 'YYYY/MM/DD', {
             timeZone,
           }),
+          day: formatToTimeZone(fromUnixTime(day.dt), 'ddd', {
+            timeZone,
+          }),
           time: formatToTimeZone(fromUnixTime(day.dt), 'HH:mm', {
             timeZone,
           }),

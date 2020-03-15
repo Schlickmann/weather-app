@@ -113,15 +113,19 @@ export default function Main() {
                   day.day_formatted === dateFormatted && (
                     <li key={String(day.dt)}>
                       <div>
+                        <strong>
+                          {day.time} <span>{day.day}</span>
+                        </strong>
                         <img
                           src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
                           alt={day.weather[0].description}
                         />
                         <span>{day.weather[0].main}</span>
+                        <div>
+                          <span>{day.main.temp_max}</span>
+                          <span>{day.main.temp_min}</span>
+                        </div>
                       </div>
-                      <strong>
-                        {day.time} <span>{day.day_formatted}</span>
-                      </strong>
                     </li>
                   )
               )}
