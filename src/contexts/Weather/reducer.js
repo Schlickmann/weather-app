@@ -10,9 +10,10 @@ const Types = {
 };
 
 const INITIAL_STATE = {
-  loading: true,
+  loading: false,
   coordinater: null,
   city: '',
+  weather: [],
 };
 
 function reducer(state, action) {
