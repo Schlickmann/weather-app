@@ -15,4 +15,4 @@ Take a look at the GoWeather app before leaving home 🚗
 </p>
 
 
-[Check it out](https://weather-schlickmann.netlify.com/)
+[Check it out](https://weather-app-schlickmann.vercel.app/)
